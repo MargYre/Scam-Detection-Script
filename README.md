@@ -20,3 +20,9 @@ npm install -D ts-node
 ```bash
 ts-node src/index.ts
 ```
+
+## Avertissement : services fictifs
+
+Le code dans src/services.ts est entièrement fictif et simule des appels à des services externes. Ces services (par exemple, le calcul de la côte d'un véhicule ou la vérification d'immatriculation) sont mockés (simulés) et ne contactent pas de véritables bases de données ou APIs.
+
+Ces services sont implémentés uniquement à des fins de démonstration pour ce projet. En production, vous devriez remplacer ces appels par de véritables requêtes vers des services externes.
