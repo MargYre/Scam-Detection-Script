@@ -19,6 +19,7 @@ npm install -D ts-node
 
 ```bash
 npx ts-node src/index.ts
+
 ```
 
 ## Avertissement : services fictifs
