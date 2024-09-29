@@ -3,9 +3,9 @@
 import { Ad } from './types';
 import { ad } from './models/ad';
 import { firstnameLengthRule, lastnameLengthRule, alphaRateRule,
-          numberRateRule } from './rules';
+          numberRateRule, priceQuotationRateRule, registerNumberBlocklistRule } from './rules';
 
-function checkRules(ad: Ad) {
+async function checkRules(ad: Ad) {
     const brokenRules: string[] = [];
   
     if (!firstnameLengthRule(ad.contacts)) {
@@ -15,12 +15,18 @@ function checkRules(ad: Ad) {
       brokenRules.push("rule::lastname::length");
     }
     if (!alphaRateRule(ad.contacts)) {
-      brokenRules.push("rule::alphaRate");
+      brokenRules.push("rule::alpha_rate");
     }
     if (!numberRateRule(ad.contacts)) {
-      brokenRules.push("rule::numberRate");
+      brokenRules.push("rule::number_rate");
     }
-  
+    if (!(await priceQuotationRateRule(ad.vehicle, ad.price))) {
+      brokenRules.push("rule::price_quotation_rate");
+    }
+    if (!(await registerNumberBlocklistRule(ad.vehicle))) {
+      brokenRules.push("rule::register_number_blocklist");
+    }
+
     const scam = brokenRules.length > 0;
   
     console.log({
@@ -28,6 +34,10 @@ function checkRules(ad: Ad) {
       scam,
       rules: brokenRules
     });
-  }
-  
-checkRules(ad);
+}
+
+checkRules(ad).then(() => {
+  console.log("Rule check completed successfully.");
+}).catch((err) => {
+  console.error("Error during rule check:", err);
+});
