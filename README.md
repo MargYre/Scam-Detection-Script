@@ -18,7 +18,7 @@ npm install -D ts-node
 ## Execution
 
 ```bash
-ts-node src/index.ts
+npx ts-node src/index.ts
 ```
 
 ## Avertissement : services fictifs
